@@ -7,7 +7,7 @@ pipeline {
             name: 'REQUESTED_ACTION')
         string(
               name: 'GIT_URL', 
-              defaultValue: 'https://github.com/tavisca-sverma/WebAPIs.git',
+              defaultValue: 'https://github.com/tavisca-mgandhe/WebAPIs.git',
               description: 'repository path')
         string(
                name: 'WEB_API_SOLUTION_FILE', 
