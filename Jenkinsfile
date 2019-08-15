@@ -24,7 +24,7 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'BUILD' || params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
-                sh '''
+                bat '''
                     dotnet restore ${WEB_API_SOLUTION_FILE} --source https://api.nuget.org/v3/index.json 
                     dotnet build ${WEB_API_SOLUTION_FILE} -p:Configuration=release -v:n
                 '''
@@ -35,7 +35,7 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
-                sh'dotnet test ${TEST_PROJECT_PATH}'
+                bat 'dotnet test ${TEST_PROJECT_PATH}'
             }
         }
     }
