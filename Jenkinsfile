@@ -35,16 +35,32 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
-                bat 'dotnet test WebApiTests/WebApiTests.csproj'
+                powershell '''dotnet test WebApiTests/WebApiTests.csproj'''
             }
         }
-           stage('Publish') {
+           stage('Build Solution') {
             when {
                 expression { params.REQUESTED_ACTION == 'BUILD' }
             }
             steps {
-                bat 'dotnet publish WebAPIs.sln'
+                powershell '''dotnet publish WebAPIs.sln'''
             }
         }
+        stage('Archive') {
+            when {
+                expression { params.REQUESTED_ACTION == 'BUILD' }
+            }
+            steps {
+                powershell '''Compress-Archive WebAPIs\bin\Debug\netcoreapp2.2\publish\* solution.zip'''
+            }
+        }
+            stage('Copy To Production') {
+            when {
+                expression { params.REQUESTED_ACTION == 'BUILD' }
+            }
+            steps {
+                powershell '''COPY solution.zip Production/'''
+            }
+        } 
     }
 }
