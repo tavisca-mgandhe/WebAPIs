@@ -38,5 +38,13 @@ pipeline {
                 bat 'dotnet test WebApiTests/WebApiTests.csproj'
             }
         }
+           stage('Publish') {
+            when {
+                expression { params.REQUESTED_ACTION == 'BUILD' }
+            }
+            steps {
+                bat 'dotnet publish WebAPIs.sln'
+            }
+        }
     }
 }
