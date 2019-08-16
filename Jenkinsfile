@@ -24,7 +24,7 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'BUILD' || params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
-                bat '''
+                powershell '''
                     dotnet restore WebAPIs.sln --source https://api.nuget.org/v3/index.json 
                     dotnet build WebAPIs.sln -p:Configuration=release -v:n
                 '''
