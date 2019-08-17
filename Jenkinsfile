@@ -35,7 +35,7 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
-                bat 'dotnet test WebApiTests/WebApiTests.csproj'
+                bat "dotnet test ${TEST_PROJECT_PATH}"
             }
         }
            stage('Publish') {
