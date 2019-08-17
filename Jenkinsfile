@@ -25,8 +25,8 @@ pipeline {
             }
             steps {
                 powershell '''
-                    dotnet restore %WEB_API_SOLUTION_FILE% --source https://api.nuget.org/v3/index.json 
-                    dotnet build %WEB_API_SOLUTION_FILE% -p:Configuration=release -v:n
+                    dotnet restore WebAPIs.sln --source https://api.nuget.org/v3/index.json 
+                    dotnet build WebAPIs.sln -p:Configuration=release -v:n
                 '''
             }
         }
@@ -35,17 +35,16 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
-                powershell '''dotnet test %TEST_PROJECT_PATH%'''
+                bat 'dotnet test WebApiTests/WebApiTests.csproj'
             }
         }
-           stage('Build Solution') {
+           stage('Publish') {
             when {
                 expression { params.REQUESTED_ACTION == 'BUILD' }
             }
             steps {
-                powershell '''dotnet publish %WEB_API_SOLUTION_FILE%'''
+                bat 'dotnet publish WebAPIs.sln'
             }
         }
-       
     }
 }
