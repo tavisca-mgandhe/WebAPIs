@@ -24,10 +24,9 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'BUILD' || params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
-                powershell "
-                    dotnet restore ${WEB_API_SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
-                        dotnet build ${WEB_API_SOLUTION_FILE} -p:Configuration=release -v:n
-                "
+                powershell "dotnet restore ${WEB_API_SOLUTION_FILE} --source https://api.nuget.org/v3/index.json"
+                
+                        powershell "dotnet build ${WEB_API_SOLUTION_FILE} -p:Configuration=release -v:n"
             }
         }
         stage('Test') {
