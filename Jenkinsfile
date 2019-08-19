@@ -52,7 +52,7 @@ pipeline {
                
                  bat " dotnet publish ${WEB_API_SOLUTION_FILE} -c Release -o ../publish"
                 
-                 bat " compress-archive WebApis/bin/Release/netcoreapp2.2/publish/ artifact.zip -Update"
+                 powershell " compress-archive WebApis/bin/Release/netcoreapp2.2/publish/ artifact.zip -Update"
                 
                  bat "docker build -t %DOCKER_REPO_NAME%:%IMAGE_VERSION% --build-arg project_name=%SOLUTION_NAME%.dll ."
                 
