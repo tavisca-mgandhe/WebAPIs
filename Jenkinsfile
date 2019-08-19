@@ -44,27 +44,29 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'BUILD' || params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
-                bat '''
+                
               
-                echo "----------------------------Build-----------------------------"
-                dotnet build %WEB_API_SOLUTION_FILE% -p:Configuration=release -v:n
+               bat " echo "----------------------------Build-----------------------------""
+                bat "  dotnet build ${WEB_API_SOLUTION_FILE} -p:Configuration=release -v:n"
                
-                echo "----------------------------Test-----------------------------"
-                dotnet test %TEST_PROJECT_PATH%
+                bat " echo "----------------------------Test-----------------------------""
+                bat " dotnet test ${TEST_PROJECT_PATH}"
                
-                echo "----------------------------Publishing-----------------------------"
-                dotnet publish %WEB_API_SOLUTION_FILE% -c Release -o ../publish
+                bat "echo "----------------------------Publishing-----------------------------""
+                bat " dotnet publish ${WEB_API_SOLUTION_FILE} -c Release -o ../publish"
                 
-                echo "----------------------------make artifact-----------------------------"
-                compress-archive WebApi/bin/Release/netcoreapp2.2/publish/ artifact.zip -Update
+                bat " echo "----------------------------make artifact-----------------------------""
+                bat " compress-archive WebApis/bin/Release/netcoreapp2.2/publish/ artifact.zip -Update"
                 
-                  echo "----------------------------DockeImage-----------------------------"
-                docker build -t %DOCKER_REPO_NAME%:%IMAGE_VERSION% --build-arg project_name=%SOLUTION_NAME%.dll .
-               
-                '''
+                 bat "  echo "----------------------------DockeImage-----------------------------""
+                bat "docker build -t %DOCKER_REPO_NAME%:%IMAGE_VERSION% --build-arg project_name=%SOLUTION_NAME%.dll ."
+                
             }
         }
          stage('Deploy') {
+             when {
+                expression { params.REQUESTED_ACTION == 'DEPLOY' }
+            }
             steps {
                 bat '''
                 echo "----------------------------Deploy-----------------------------"
@@ -78,3 +80,4 @@ pipeline {
         
     }
 }
+'
