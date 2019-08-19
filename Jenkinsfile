@@ -27,7 +27,7 @@ pipeline {
             description: 'docker password')
         string(
             name: 'DOCKER_REPO_NAME',
-            defaultValue:'jayantvnk/webapi',
+            defaultValue:'mayankgandhe/webapi',
             description: 'docker repository')
         string(
             name: 'IMAGE_VERSION',
