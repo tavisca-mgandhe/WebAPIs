@@ -63,13 +63,10 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'DEPLOY' }
             }
             steps {
-                bat '''
+                
                 echo "----------------------------Deploy-----------------------------"
-                docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%
-                docker push %DOCKER_REPO_NAME%:%IMAGE_VERSION%
-                
-                
-                '''
+                bat "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+               bat" docker push ${DOCKER_REPO_NAME}:${IMAGE_VERSION}"
             }
         }
         
