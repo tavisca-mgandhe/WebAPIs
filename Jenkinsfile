@@ -46,20 +46,15 @@ pipeline {
             steps {
                 
               
-               bat " echo "----------------------------Build-----------------------------""
-                bat "  dotnet build ${WEB_API_SOLUTION_FILE} -p:Configuration=release -v:n"
+                 bat "  dotnet build ${WEB_API_SOLUTION_FILE} -p:Configuration=release -v:n"
                
-                bat " echo "----------------------------Test-----------------------------""
-                bat " dotnet test ${TEST_PROJECT_PATH}"
+                 bat " dotnet test ${TEST_PROJECT_PATH}"
                
-                bat "echo "----------------------------Publishing-----------------------------""
-                bat " dotnet publish ${WEB_API_SOLUTION_FILE} -c Release -o ../publish"
+                 bat " dotnet publish ${WEB_API_SOLUTION_FILE} -c Release -o ../publish"
                 
-                bat " echo "----------------------------make artifact-----------------------------""
-                bat " compress-archive WebApis/bin/Release/netcoreapp2.2/publish/ artifact.zip -Update"
+                 bat " compress-archive WebApis/bin/Release/netcoreapp2.2/publish/ artifact.zip -Update"
                 
-                 bat "  echo "----------------------------DockeImage-----------------------------""
-                bat "docker build -t %DOCKER_REPO_NAME%:%IMAGE_VERSION% --build-arg project_name=%SOLUTION_NAME%.dll ."
+                 bat "docker build -t %DOCKER_REPO_NAME%:%IMAGE_VERSION% --build-arg project_name=%SOLUTION_NAME%.dll ."
                 
             }
         }
