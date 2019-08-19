@@ -23,7 +23,7 @@ pipeline {
              description: 'docker username')
         string(
             name: 'DOCKER_PASSWORD',
-            defaultValue:'mayank8.0',
+            defaultValue:'',
             description: 'docker password')
         string(
             name: 'DOCKER_REPO_NAME',
