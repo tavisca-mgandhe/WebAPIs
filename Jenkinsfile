@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         choice(
-            choices: ['BUILD' , 'TEST'],
+            choices: ['BUILD' , 'DEPLOY'],
             description: '',
             name: 'REQUESTED_ACTION')
         string(
