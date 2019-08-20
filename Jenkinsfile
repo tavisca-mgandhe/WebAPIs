@@ -67,6 +67,8 @@ pipeline {
                 echo "----------------------------Deploy-----------------------------"
                 bat "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
                bat" docker push ${DOCKER_REPO_NAME}:${IMAGE_VERSION}"
+                            deleteDir()
+
             }
         }
         
