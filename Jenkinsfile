@@ -41,7 +41,7 @@ pipeline {
     stages {
         stage('Build') {
             when {
-                expression { params.REQUESTED_ACTION == 'BUILD' || params.REQUESTED_ACTION == 'TEST' }
+                expression { params.REQUESTED_ACTION == 'BUILD' || params.REQUESTED_ACTION == 'DEPLOY' }
             }
             steps {
                 
